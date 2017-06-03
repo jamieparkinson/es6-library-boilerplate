@@ -30,7 +30,7 @@
       }
     },
     "compile:umd": {
-      "command": "mkdirp dist/ && babel -o dist/index.js src/",
+      "command": "mkdirp dist/ && babel -o dist/bundle.js src/",
       "env": {
         "NODE_ENV": "umd"
       }
