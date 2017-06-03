@@ -2,10 +2,40 @@
   "name": "es6-library-boilerplate",
   "version": "1.0.0-alpha",
   "description": "Boilerplate for libraries using modern tools",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "jsnext:main": "es/index.js",
+  "files": [
+    "lib",
+    "src",
+    "dist",
+    "es"
+  ],
   "repository": "git@github.com:jamieparkinson/es6-library-boilerplate.git",
   "author": "Jamie Parkinson <jamie.y.parkinson@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "compile:commonjs": "better-npm-run compile:commonjs",
+    "compile:umd": "better-npm-run compile:umd",
+    "compile:es": "babel -d es/ src/",
+    "compile": "npm run compile:commonjs && npm run compile:umd && npm run compile:es",
+    "lint": "eslint src",
+    "test": "jest",
+    "prepublishOnly": "npm run test -- --bail && npm run lint && npm run compile"
+  },
+  "betterScripts": {
+    "compile:commonjs": {
+      "command": "babel -d lib/ src/",
+      "env": {
+        "NODE_ENV": "commonjs"
+      }
+    },
+    "compile:umd": {
+      "command": "mkdir dist/ && babel -o dist/$npm_package_name.js",
+      "env": {
+        "NODE_ENV": "umd"
+      }
+    }
+  },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-jest": "^20.0.3",
@@ -17,5 +47,8 @@
     "eslint-plugin-import": "^2.3.0",
     "flow-bin": "^0.47.0",
     "jest": "^20.0.4"
+  },
+  "jest": {
+    "roots": ["<rootDir/src/"]
   }
 }
